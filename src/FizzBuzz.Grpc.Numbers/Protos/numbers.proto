@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option csharp_namespace = "FizzBuzz.Grpc.Numbers";
+
+package numbers;
+
+
+service Number {
+  // Sends a greeting
+  rpc GetNumbers(NumbersRequest) returns (stream NumberResult);
+}
+
+// The request message containing the user's name.
+message NumbersRequest {
+  int32 max = 1;
+}
+
+// The response message containing the greetings.
+message NumberResult {
+  int32 id = 1;
+  string word = 2;
+  string binary = 3;
+}

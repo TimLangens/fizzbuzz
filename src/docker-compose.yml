@@ -1,0 +1,88 @@
+version: '3'
+
+networks:
+ fizzbuzz:
+
+services:
+  reverse-proxy:
+    image: traefik:v2.3
+    command: 
+      - --api.insecure=true
+      - --providers.docker
+      - --entrypoints.web.address=:80
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - fizzbuzz
+      
+  rest-numbers:
+    build: './FizzBuzz.Rest.Numbers'
+    image: rest-numbers:latest
+    container_name: rest-numbers
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.rest-numbers.rule=Host(`rest.numbers.localhost`)"
+      - "traefik.http.routers.rest-numbers.entrypoints=web"
+    networks:
+      - fizzbuzz
+      
+  rest-fizz:
+    build: './FizzBuzz.Rest.Fizz'
+    image: rest-fizz:latest
+    container_name: rest-fizz
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.rest-fizz.rule=Host(`rest.fizz.localhost`)"
+      - "traefik.http.routers.rest-fizz.entrypoints=web"
+    networks:
+      - fizzbuzz
+      
+  rest-buzz:
+    build: './FizzBuzz.Rest.Buzz'
+    image: rest-buzz:latest
+    container_name: rest-buzz
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.rest-buzz.rule=Host(`rest.buzz.localhost`)"
+      - "traefik.http.routers.rest-buzz.entrypoints=web"
+    networks:
+      - fizzbuzz
+      
+  grpc-numbers:
+    build: './FizzBuzz.Grpc.Numbers'
+    image: grpc-numbers:latest
+    container_name: grpc-numbers
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grpc-numbers.rule=Host(`grpc.numbers.localhost`)"
+      - "traefik.http.routers.grpc-numbers.entrypoints=web"
+      - "traefik.http.services.grpc-numbers.loadbalancer.server.scheme=h2c"
+    networks:
+      - fizzbuzz
+      
+  grpc-fizz:
+    build: './FizzBuzz.Grpc.Fizz'
+    image: grpc-fizz:latest
+    container_name: grpc-fizz
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grpc-fizz.rule=Host(`grpc.fizz.localhost`)"
+      - "traefik.http.routers.grpc-fizz.entrypoints=web"
+      - "traefik.http.services.grpc-fizz.loadbalancer.server.scheme=h2c"
+    networks:
+      - fizzbuzz
+      
+  grpc-buzz:
+    build: './FizzBuzz.Grpc.Buzz'
+    image: grpc-buzz:latest
+    container_name: grpc-buzz
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grpc-buzz.rule=Host(`grpc.buzz.localhost`)"
+      - "traefik.http.routers.grpc-buzz.entrypoints=web"
+      - "traefik.http.services.grpc-buzz.loadbalancer.server.scheme=h2c"
+    networks:
+      - fizzbuzz

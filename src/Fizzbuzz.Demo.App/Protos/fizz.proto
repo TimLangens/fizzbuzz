@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option csharp_namespace = "FizzBuzz.Demo.App";
+
+package fizz;
+
+// The greeting service definition.
+service Fizz {
+  // Sends a greeting
+  rpc Fizzify (FizzId) returns (FizzReply);
+}
+
+// The request message containing the user's name.
+message FizzId {
+  int32 id = 1;
+}
+
+// The response message containing the greetings.
+message FizzReply {
+  bool fizzable = 1;
+}
