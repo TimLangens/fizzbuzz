@@ -4,18 +4,17 @@ option csharp_namespace = "FizzBuzz.Demo.App";
 
 package numbers;
 
-
 service Number {
-  // Sends a greeting
+  // Sends the numbers async
   rpc GetNumbers(NumbersRequest) returns (stream NumberResult);
 }
 
-// The request message containing the user's name.
+// The request message containing the amount of numbers to return.
 message NumbersRequest {
   int32 max = 1;
 }
 
-// The response message containing the greetings.
+// The response message containing the number.
 message NumberResult {
   int32 id = 1;
   string word = 2;

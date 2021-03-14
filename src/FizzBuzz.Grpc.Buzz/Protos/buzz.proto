@@ -4,18 +4,14 @@ option csharp_namespace = "FizzBuzz.Grpc.Buzz";
 
 package buzz;
 
-// The greeting service definition.
 service Buzz {
-  // Sends a greeting
   rpc Buzzify (BuzzId) returns (BuzzReply);
 }
 
-// The request message containing the user's name.
 message BuzzId {
   int32 id = 1;
 }
 
-// The response message containing the greetings.
 message BuzzReply {
   string word = 2;
 }

@@ -7,7 +7,6 @@ namespace FizzBuzz.Grpc.Numbers
 {
     public class NumberService : Number.NumberBase
     {
-
         private List<string> unities = new List<string> { "", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
         private List<string> tens = new List<string> { "", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
         private List<string> unityTen = new List<string> { "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eightteen", "nineteen" };
