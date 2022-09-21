@@ -16,6 +16,7 @@ namespace Fizzbuzz.Rest.Numbers.Services
         {
             for (var i = 1; i <= max; i++)
             {
+                await Task.Delay(100);
                 yield return await GetNumber(i);
             }
         }

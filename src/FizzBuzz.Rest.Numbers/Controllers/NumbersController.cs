@@ -29,7 +29,6 @@ namespace Fizzbuzz.Rest.Numbers.Controllers
             var list = new List<Number>();
             await foreach (var number in _numberService.GetAll(max))
             {
-                await Task.Delay(100);
                 list.Add(number);
             }
             return Ok(list);
